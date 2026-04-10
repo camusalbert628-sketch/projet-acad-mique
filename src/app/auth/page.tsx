@@ -2,11 +2,15 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import { Mail, Lock, User, ArrowRight } from "lucide-react";
+import { signIn } from "next-auth/react";
 
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
+
+  const handleGoogleSignIn = () => {
+    signIn("google", { callbackUrl: "/type-travail" });
+  };
 
   return (
     <div className="flex-1 flex flex-col justify-center py-16 sm:px-6 lg:px-8 relative min-h-[calc(100vh-80px)]">
@@ -29,9 +33,13 @@ export default function AuthPage() {
 
         <div className="bg-white py-8 px-4 shadow-2xl border border-slate-100 sm:rounded-2xl sm:px-10">
 
-          {/* Social Auth (Mock) */}
+          {/* Social Auth */}
           <div className="mb-6">
-            <button className="w-full flex justify-center items-center py-3 px-4 border border-slate-300 rounded-xl shadow-sm bg-white text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors">
+            <button
+              onClick={handleGoogleSignIn}
+              type="button"
+              className="w-full flex justify-center items-center py-3 px-4 border border-slate-300 rounded-xl shadow-sm bg-white text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors"
+            >
               <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                 <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>

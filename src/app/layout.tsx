@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import { MessageCircle } from "lucide-react";
+import { Providers } from "@/components/Providers";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 
@@ -30,6 +31,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900 selection:bg-indigo-100 selection:text-indigo-900 relative">
+        <Providers>
 
         <Navbar />
 
@@ -87,6 +89,7 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+      </Providers>
       </body>
     </html>
   );
