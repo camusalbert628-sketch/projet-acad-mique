@@ -17,7 +17,7 @@ export default function QuestionnairePage() {
           </div>
           <h3 className="text-xl font-bold text-gray-900 mb-2">Option 1 : J&apos;ai déjà un questionnaire</h3>
           <p className="text-gray-500 mb-6 flex-1">Importez votre questionnaire existant. Vous pouvez télécharger notre template Excel pour vous assurer que le format est correct.</p>
-
+          
           <div className="w-full space-y-3">
             <button className="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
               Télécharger le template Excel
@@ -34,7 +34,7 @@ export default function QuestionnairePage() {
           </div>
           <h3 className="text-xl font-bold text-gray-900 mb-2">Option 2 : Je veux créer mon questionnaire</h3>
           <p className="text-gray-500 mb-6 flex-1">Utilisez notre builder intégré pour générer votre questionnaire étape par étape, avec l&apos;aide de nos suggestions adaptées à votre domaine.</p>
-
+          
           <div className="w-full mt-auto">
             <button className="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
               Ouvrir le Builder de Questionnaire

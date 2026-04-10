@@ -18,7 +18,7 @@ export default function CollectePage() {
           </div>
           <h3 className="text-xl font-bold text-gray-900 mb-2">J&apos;ai mes données</h3>
           <p className="text-gray-500 mb-6 flex-1">Importez votre fichier Excel ou CSV contenant les réponses à votre questionnaire.</p>
-
+          
           <div className="w-full mt-auto">
             <label className="w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 cursor-pointer">
               <span>Choisir un fichier (Excel/CSV)</span>
@@ -35,7 +35,7 @@ export default function CollectePage() {
           </div>
           <h3 className="text-xl font-bold text-gray-900 mb-2">Générer des données</h3>
           <p className="text-gray-500 mb-6 flex-1">Nous simulons un jeu de données réaliste basé sur vos hypothèses et paramètres statistiques pour vous permettre de tester les analyses.</p>
-
+          
           <div className="w-full mt-auto">
             <button className="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
               Lancer la simulation

@@ -16,7 +16,7 @@ export default function AnalysePage() {
 
       <div className="bg-white shadow overflow-hidden sm:rounded-lg border border-gray-200">
         <div className="px-4 py-5 sm:p-6 space-y-8">
-
+          
           <fieldset>
             <legend className="text-base font-medium text-gray-900">Format des résultats</legend>
             <div className="mt-4 space-y-4">
@@ -47,7 +47,7 @@ export default function AnalysePage() {
                   <p className="text-gray-500">Fréquences, moyennes, écart-types.</p>
                 </div>
               </div>
-
+              
               <div className="flex items-start">
                 <div className="flex items-center h-5">
                   <input id="niveau-avance" name="niveau-avance" type="checkbox" className="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded" />

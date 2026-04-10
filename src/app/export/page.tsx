@@ -12,7 +12,7 @@ export default function ExportPage() {
 
       <div className="bg-white shadow overflow-hidden sm:rounded-lg border border-gray-200">
         <div className="px-4 py-5 sm:p-6 space-y-8">
-
+          
           {/* Format d'export */}
           <fieldset>
             <legend className="text-base font-medium text-gray-900">Format d&apos;export</legend>
