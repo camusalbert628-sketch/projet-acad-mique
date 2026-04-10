@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Lock, User, ArrowRight } from "lucide-react";
+import { Mail, Lock, User, ArrowRight, GraduationCap, Building } from "lucide-react";
 import { signIn } from "next-auth/react";
 
 export default function AuthPage() {
@@ -24,10 +24,10 @@ export default function AuthPage() {
       >
         <div className="text-center mb-8">
           <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
-            {isLogin ? "Content de vous revoir !" : "Rejoignez Genenzis Academy"}
+            {isLogin ? "Content de vous revoir !" : "Rejoignez DataAcademia"}
           </h2>
           <p className="mt-2 text-sm text-slate-600">
-            {isLogin ? "Accédez à votre espace apprenant" : "Créez votre compte pour commencer à apprendre"}
+            {isLogin ? "Accédez à votre espace d&apos;analyse" : "Créez votre compte étudiant pour commencer"}
           </p>
         </div>
 
@@ -55,7 +55,7 @@ export default function AuthPage() {
               <div className="w-full border-t border-slate-200" />
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-white text-slate-500">Ou continuez avec</span>
+              <span className="px-2 bg-white text-slate-500">Ou avec votre email</span>
             </div>
           </div>
 
@@ -63,18 +63,49 @@ export default function AuthPage() {
             <AnimatePresence mode="wait">
               {!isLogin && (
                 <motion.div
-                  key="name-input"
+                  key="signup-fields"
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.2 }}
+                  className="space-y-5"
                 >
-                  <label className="block text-sm font-medium text-slate-700 mb-1">Nom complet</label>
-                  <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                      <User className="h-5 w-5 text-slate-400" />
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Nom complet</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <User className="h-5 w-5 text-slate-400" />
+                      </div>
+                      <input type="text" className="pl-10 appearance-none block w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-all" placeholder="Jean Dupont" />
                     </div>
-                    <input type="text" className="pl-10 appearance-none block w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all" placeholder="Jean Dupont" />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Niveau d&apos;étude</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <GraduationCap className="h-5 w-5 text-slate-400" />
+                      </div>
+                      <select className="pl-10 appearance-none block w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-all text-slate-700">
+                        <option value="">Sélectionnez votre niveau</option>
+                        <option value="L1">Licence 1</option>
+                        <option value="L2">Licence 2</option>
+                        <option value="L3">Licence 3</option>
+                        <option value="M1">Master 1</option>
+                        <option value="M2">Master 2</option>
+                        <option value="Doctorat">Doctorat</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Université / Établissement</label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Building className="h-5 w-5 text-slate-400" />
+                      </div>
+                      <input type="text" className="pl-10 appearance-none block w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-all" placeholder="Ex: Université de Douala" />
+                    </div>
                   </div>
                 </motion.div>
               )}
@@ -86,7 +117,7 @@ export default function AuthPage() {
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Mail className="h-5 w-5 text-slate-400" />
                 </div>
-                <input type="email" required className="pl-10 appearance-none block w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all" placeholder="vous@exemple.com" />
+                <input type="email" required className="pl-10 appearance-none block w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-all" placeholder="vous@exemple.com" />
               </div>
             </div>
 
@@ -96,23 +127,23 @@ export default function AuthPage() {
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Lock className="h-5 w-5 text-slate-400" />
                 </div>
-                <input type="password" required className="pl-10 appearance-none block w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm transition-all" placeholder="••••••••" />
+                <input type="password" required className="pl-10 appearance-none block w-full px-4 py-3 border border-slate-200 rounded-xl bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-all" placeholder="••••••••" />
               </div>
             </div>
 
             {isLogin && (
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <input id="remember-me" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded" />
+                  <input id="remember-me" type="checkbox" className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded" />
                   <label htmlFor="remember-me" className="ml-2 block text-sm text-slate-700">Se souvenir de moi</label>
                 </div>
                 <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">Mot de passe oublié ?</a>
+                  <a href="#" className="font-semibold text-blue-600 hover:text-blue-500">Mot de passe oublié ?</a>
                 </div>
               </div>
             )}
 
-            <button type="button" onClick={() => window.location.href = '/type-travail'} className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl shadow-md text-sm font-bold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all hover:-translate-y-0.5">
+            <button type="button" onClick={() => window.location.href = '/type-travail'} className="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-xl shadow-md text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all hover:-translate-y-0.5">
               {isLogin ? "Se connecter" : "Créer mon compte"} <ArrowRight className="ml-2 w-4 h-4" />
             </button>
           </form>
@@ -120,7 +151,7 @@ export default function AuthPage() {
           <div className="mt-6 text-center">
             <p className="text-sm text-slate-600">
               {isLogin ? "Vous n&apos;avez pas de compte ?" : "Vous avez déjà un compte ?"}
-              <button onClick={() => setIsLogin(!isLogin)} className="ml-1 font-bold text-indigo-600 hover:text-indigo-500">
+              <button onClick={() => setIsLogin(!isLogin)} className="ml-1 font-bold text-blue-600 hover:text-blue-500">
                 {isLogin ? "S&apos;inscrire" : "Se connecter"}
               </button>
             </p>
