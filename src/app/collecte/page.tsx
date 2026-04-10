@@ -1,63 +1,86 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { UploadCloud, Wand2 } from "lucide-react";
 
 export default function CollectePage() {
   return (
-    <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8 w-full">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl font-extrabold text-gray-900">Collecte des Réponses</h2>
-        <p className="mt-4 text-lg text-gray-500">
+    <div className="max-w-5xl mx-auto py-12 px-4 sm:px-6 lg:px-8 w-full z-10 relative">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center mb-16"
+      >
+        <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Collecte des Réponses</h2>
+        <p className="mt-4 text-lg text-slate-500">
           Importez vos données collectées ou laissez-nous simuler des réponses pour votre démonstration.
         </p>
-      </div>
+      </motion.div>
 
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {/* Option 1: Import */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center flex flex-col items-center">
-          <div className="h-16 w-16 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center mb-6">
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.1, duration: 0.4 }}
+          className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200 p-10 text-center flex flex-col items-center hover:shadow-xl transition-shadow duration-300 group"
+        >
+          <div className="h-20 w-20 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300">
+            <UploadCloud className="w-10 h-10" />
           </div>
-          <h3 className="text-xl font-bold text-gray-900 mb-2">J&apos;ai mes données</h3>
-          <p className="text-gray-500 mb-6 flex-1">Importez votre fichier Excel ou CSV contenant les réponses à votre questionnaire.</p>
-          
+          <h3 className="text-2xl font-bold text-slate-900 mb-4">J&apos;ai mes données</h3>
+          <p className="text-slate-500 mb-8 flex-1 leading-relaxed">Importez votre fichier Excel ou CSV contenant les réponses à votre questionnaire.</p>
+
           <div className="w-full mt-auto">
-            <label className="w-full flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 cursor-pointer">
+            <label className="w-full flex justify-center items-center px-6 py-3 border border-slate-300 shadow-sm text-base font-medium rounded-xl text-slate-700 bg-white hover:bg-slate-50 cursor-pointer transition-all">
               <span>Choisir un fichier (Excel/CSV)</span>
               <input type="file" className="sr-only" accept=".xlsx,.xls,.csv" />
             </label>
-            <p className="mt-2 text-xs text-gray-500">Max 10MB.</p>
+            <p className="mt-3 text-xs text-slate-400">Taille maximum : 10MB.</p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Option 2: Simulation */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center flex flex-col items-center">
-          <div className="h-16 w-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mb-6">
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.2, duration: 0.4 }}
+          className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200 p-10 text-center flex flex-col items-center hover:shadow-xl transition-shadow duration-300 group"
+        >
+          <div className="h-20 w-20 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300">
+            <Wand2 className="w-10 h-10" />
           </div>
-          <h3 className="text-xl font-bold text-gray-900 mb-2">Générer des données</h3>
-          <p className="text-gray-500 mb-6 flex-1">Nous simulons un jeu de données réaliste basé sur vos hypothèses et paramètres statistiques pour vous permettre de tester les analyses.</p>
-          
+          <h3 className="text-2xl font-bold text-slate-900 mb-4">Générer des données</h3>
+          <p className="text-slate-500 mb-8 flex-1 leading-relaxed">Nous simulons un jeu de données réaliste basé sur vos hypothèses et paramètres statistiques pour vous permettre de tester les analyses.</p>
+
           <div className="w-full mt-auto">
-            <button className="w-full inline-flex justify-center items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+            <button className="w-full inline-flex justify-center items-center px-6 py-3 border border-transparent shadow-sm text-base font-medium rounded-xl text-white bg-amber-500 hover:bg-amber-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500 transition-all">
               Lancer la simulation
             </button>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      <div className="mt-12 flex justify-between">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="mt-16 flex justify-between"
+      >
         <Link
           href="/parametres"
-          className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="bg-white py-3 px-6 border border-slate-300 rounded-xl shadow-sm text-sm font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all"
         >
           Retour
         </Link>
         <Link
           href="/analyse"
-          className="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          className="ml-3 inline-flex justify-center py-3 px-6 border border-transparent shadow-md text-sm font-medium rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all hover:-translate-y-0.5"
         >
           Passer à l&apos;analyse
         </Link>
-      </div>
+      </motion.div>
     </div>
   );
 }
