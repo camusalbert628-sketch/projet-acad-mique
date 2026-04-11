@@ -21,7 +21,6 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Accueil", href: "/" },
-    { name: "Dashboard", href: "/dashboard" },
     { name: "Questionnaire", href: "/questionnaire" },
     { name: "Analyse", href: "/analyse" },
     { name: "Résultats", href: "/resultats" },
@@ -61,12 +60,15 @@ export default function Navbar() {
             <div className="hidden md:flex items-center space-x-4">
               {session ? (
                 <>
-                  <span className="text-sm font-medium text-slate-700">
-                    {session.user?.name || session.user?.email}
-                  </span>
+                  <Link
+                    href={session.user?.role === "ADMIN" ? "/admin" : "/etudiant"}
+                    className="text-sm font-bold text-indigo-700 bg-indigo-50 px-4 py-2 rounded-lg hover:bg-indigo-100 transition-colors"
+                  >
+                    {session.user?.role === "ADMIN" ? "Espace Admin" : "Mon Espace"}
+                  </Link>
                   <button
                     onClick={() => signOut({ callbackUrl: '/' })}
-                    className="text-rose-600 font-medium hover:text-rose-700 transition-colors"
+                    className="text-rose-600 font-medium hover:text-rose-700 transition-colors text-sm"
                   >
                     Déconnexion
                   </button>
@@ -122,15 +124,24 @@ export default function Navbar() {
               ))}
               <div className="pt-6 flex flex-col space-y-4">
                 {session ? (
-                  <button
-                    onClick={() => {
-                      setIsMobileMenuOpen(false);
-                      signOut({ callbackUrl: '/' });
-                    }}
-                    className="text-rose-600 text-lg font-medium py-3"
-                  >
-                    Déconnexion
-                  </button>
+                  <>
+                    <Link
+                      href={session.user?.role === "ADMIN" ? "/admin" : "/etudiant"}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="bg-indigo-50 text-indigo-700 text-lg font-bold py-3 rounded-xl shadow-sm"
+                    >
+                      {session.user?.role === "ADMIN" ? "Espace Admin" : "Mon Espace"}
+                    </Link>
+                    <button
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        signOut({ callbackUrl: '/' });
+                      }}
+                      className="text-rose-600 text-lg font-medium py-3"
+                    >
+                      Déconnexion
+                    </button>
+                  </>
                 ) : (
                   <>
                     <Link
