@@ -18,7 +18,7 @@ const poppins = Poppins({
 
 export const metadata = {
   title: "DataAcademia - Analyse tes données académiques",
-  description: "Plateforme d'analyse pour travaux de recherche étudiants.",
+  description: "Plateforme d&apos;analyse pour travaux de recherche étudiants.",
 };
 
 export default function RootLayout({

@@ -27,7 +27,6 @@ export const config = {
     "/collecte/:path*",
     "/export/:path*",
     "/infos-projet/:path*",
-    "/type-travail/:path*",
     "/resultats/:path*",
     "/dashboard/:path*",
   ],

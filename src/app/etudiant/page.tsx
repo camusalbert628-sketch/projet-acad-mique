@@ -3,10 +3,43 @@
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { BookOpen, BarChart3, FileSpreadsheet, CheckCircle2, ArrowRight } from "lucide-react";
+import { BookOpen, BarChart3, FileSpreadsheet, CheckCircle2, ArrowRight, FolderOpen } from "lucide-react";
+import { useEffect, useState } from "react";
+
+type Project = {
+  id: string;
+  type: string;
+  theme: string | null;
+  status: string;
+  updatedAt: string;
+};
 
 export default function EtudiantDashboard() {
   const { data: session } = useSession();
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch("/api/projects");
+        if (res.ok) {
+          const data = await res.json();
+          setProjects(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (session) {
+      fetchProjects();
+    }
+  }, [session]);
+
+  const activeProject = projects.length > 0 ? projects[0] : null;
 
   return (
     <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 w-full z-10 relative">
@@ -32,58 +65,80 @@ export default function EtudiantDashboard() {
           className="col-span-1 lg:col-span-2 bg-white rounded-2xl shadow-xl border border-slate-100 p-8"
         >
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-bold text-slate-900">Projet en cours</h3>
-            <span className="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-semibold">En rédaction</span>
-          </div>
-          <div className="flex items-center space-x-4 mb-6">
-            <div className="p-3 bg-blue-50 text-blue-600 rounded-xl">
-              <BookOpen className="w-8 h-8" />
-            </div>
-            <div>
-              <h4 className="text-lg font-bold text-slate-900">L&apos;impact de l&apos;IA sur le marketing</h4>
-              <p className="text-sm text-slate-500">Mémoire de fin d&apos;étude</p>
-            </div>
+            <h3 className="text-xl font-bold text-slate-900">Projet actif</h3>
+            {activeProject && (
+                <span className="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-semibold">
+                    {activeProject.status.replace("_", " ")}
+                </span>
+            )}
           </div>
 
-          {/* Progress Tracker */}
-          <div className="space-y-4 relative before:absolute before:inset-0 before:ml-[1.15rem] before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 before:to-transparent">
-            <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-white bg-blue-600 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                <CheckCircle2 className="w-5 h-5" />
-              </div>
-              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl shadow-sm bg-white border border-slate-200">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="font-bold text-slate-900">Choix du sujet</div>
+          {loading ? (
+             <div className="text-slate-500 py-4">Chargement de vos projets...</div>
+          ) : activeProject ? (
+            <>
+              <div className="flex items-center space-x-4 mb-6">
+                <div className="p-3 bg-blue-50 text-blue-600 rounded-xl">
+                  <BookOpen className="w-8 h-8" />
                 </div>
-                <div className="text-sm text-slate-500">Terminé le 10 Mars</div>
+                <div>
+                  <h4 className="text-lg font-bold text-slate-900">{activeProject.theme || "Sujet non défini"}</h4>
+                  <p className="text-sm text-slate-500 capitalize">{activeProject.type.replace("-", " ")}</p>
+                </div>
               </div>
-            </div>
 
-            <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-white bg-blue-600 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                <span className="text-sm font-bold">2</span>
-              </div>
-              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl shadow-sm bg-blue-50 border border-blue-200">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="font-bold text-blue-900">Questionnaire & Collecte</div>
+              {/* Progress Tracker */}
+              <div className="space-y-4 relative before:absolute before:inset-0 before:ml-[1.15rem] before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 before:to-transparent">
+                <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-white bg-blue-600 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                    <CheckCircle2 className="w-5 h-5" />
+                  </div>
+                  <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl shadow-sm bg-white border border-slate-200">
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="font-bold text-slate-900">Choix du sujet</div>
+                    </div>
+                    <div className="text-sm text-slate-500">Créé le {new Date(activeProject.updatedAt).toLocaleDateString('fr-FR')}</div>
+                  </div>
                 </div>
-                <div className="text-sm text-blue-700">En attente de réponses (45/100)</div>
-                <Link href="/questionnaire" className="mt-3 inline-flex items-center text-sm font-medium text-blue-700 hover:text-blue-800">Reprendre <ArrowRight className="ml-1 w-4 h-4"/></Link>
-              </div>
-            </div>
 
-            <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
-              <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-white bg-slate-200 text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
-                <span className="text-sm font-bold">3</span>
-              </div>
-              <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl shadow-sm bg-slate-50 border border-slate-200 opacity-60">
-                <div className="flex items-center justify-between mb-1">
-                  <div className="font-bold text-slate-700">Analyse des données</div>
+                <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-white bg-blue-600 text-white shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                    <span className="text-sm font-bold">2</span>
+                  </div>
+                  <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl shadow-sm bg-blue-50 border border-blue-200">
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="font-bold text-blue-900">Questionnaire & Collecte</div>
+                    </div>
+                    <div className="text-sm text-blue-700">Configurer ou importer vos données</div>
+                    <Link href="/questionnaire" className="mt-3 inline-flex items-center text-sm font-medium text-blue-700 hover:text-blue-800">Commencer <ArrowRight className="ml-1 w-4 h-4"/></Link>
+                  </div>
                 </div>
-                <div className="text-sm text-slate-500">À venir</div>
+
+                <div className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-full border-2 border-white bg-slate-200 text-slate-500 shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+                    <span className="text-sm font-bold">3</span>
+                  </div>
+                  <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded-xl shadow-sm bg-slate-50 border border-slate-200 opacity-60">
+                    <div className="flex items-center justify-between mb-1">
+                      <div className="font-bold text-slate-700">Analyse des données</div>
+                    </div>
+                    <div className="text-sm text-slate-500">À venir</div>
+                  </div>
+                </div>
               </div>
+            </>
+          ) : (
+            <div className="text-center py-12">
+               <FolderOpen className="mx-auto h-12 w-12 text-slate-300" />
+               <h3 className="mt-2 text-sm font-medium text-slate-900">Aucun projet</h3>
+               <p className="mt-1 text-sm text-slate-500">Commencez par créer votre premier projet d&apos;analyse.</p>
+               <div className="mt-6">
+                 <Link href="/type-travail" className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                    Nouveau Projet
+                 </Link>
+               </div>
             </div>
-          </div>
+          )}
         </motion.div>
 
         {/* Quick Links */}
